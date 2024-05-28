@@ -1,6 +1,8 @@
 include(CTest)
 add_executable(ALL
     TupleTests.cpp
+    CanvasTests.cpp
+    MatricesTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})

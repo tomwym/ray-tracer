@@ -1,8 +1,10 @@
 #pragma once
 
 #include <cmath>
+#include <format>
+#include <ostream>
 
-static constexpr float EPSILON {1E-5};
+#include "Constvals.h"
 
 template<typename T>
 class Tuple;
@@ -128,6 +130,14 @@ public:
 using TupleF = Tuple<float>;
 
 template<typename T>
+auto operator<<(std::ostream& ostream, const Tuple<T>& tup) -> std::ostream&;
+template<typename T = float>
+auto operator<<(std::ostream& os, const TupleF& tup) -> std::ostream& {
+    os << std::format("({},{},{},{})", tup.x, tup.y, tup.z, tup.w);
+    return os;
+}
+
+template<typename T>
 auto operator*(const T& scalar, const Tuple<T>& tup) -> Tuple<T> {
     return tup*scalar;
 }
@@ -169,7 +179,3 @@ auto Vector(const float& x, const float& y, const float& z) -> TupleF {
     return TupleF{x, y, z, 0.0};
 }
 auto VectorF(const float& x, const float& y, const float& z) -> TupleF;
-
-auto Color(const float& red, const float& green, const float& blue) -> TupleF {
-    return TupleF{red, green, blue, 0.0};
-}

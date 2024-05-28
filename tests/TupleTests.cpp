@@ -4,15 +4,11 @@
 using namespace ::testing;
 
 #include "Tuple.h"
+#include "Color.h"
+#include "Constvals.h"
 
 #include <iostream>
 #include <format>
-
-std::ostream& operator<<(std::ostream& ostream, const TupleF& tup) {
-    ostream << std::format("({},{},{},{})", tup.x, tup.y, tup.z, tup.w);
-    return ostream;
-}
-
 
 TEST(TupleTests, PointTest)
 {
@@ -184,8 +180,8 @@ TEST(TupleTests, NormalizeTest)
     {
         TupleF tup{VectorF(1, 2, 3)};
         float expected{1.0f};
-        EXPECT_TRUE(std::abs(tup.Normalize().Magnitude() - expected) < 1e-5);
-        EXPECT_TRUE(std::abs(Magnitude(Normalize(tup)) - expected) < 1e-5);
+        EXPECT_TRUE(EQF(tup.Normalize().Magnitude(), expected));
+        EXPECT_TRUE(EQF(Magnitude(Normalize(tup)), expected));
     }
 }
 
@@ -206,7 +202,45 @@ TEST(TupleTests, CrossTest)
 TEST(TupleTests, ColorTest)
 {
     {
-        TupleF tup{Color(-0.5, 0.4, 1.7)};
+        Color color{-0.5, 0.4, 1.7};
+        EXPECT_TRUE(EQF(color.red, -0.5));
+        EXPECT_TRUE(EQF(color.green, 0.4));
+        EXPECT_TRUE(EQF(color.blue, 1.7));
     }
+}
 
+TEST(TupleTests, ColorOperatorsTest)
+{
+    // +
+    {
+        Color color1{0.9, 0.6, 0.75};
+        Color color2{0.7, 0.1, 0.25};
+        Color expected{1.6, 0.7, 1.0};
+        EXPECT_TRUE(color1+color2 == expected);
+    }
+    // -
+    {
+        Color color1{0.9, 0.6, 0.75};
+        Color color2{0.7, 0.1, 0.25};
+        Color expected{0.2, 0.5, 0.5};
+        EXPECT_TRUE(color1-color2 == expected);
+    }
+    // *
+    {
+        Color color{0.2, 0.3, 0.4};
+        float scalar{2.f};
+        Color expected{0.4, 0.6, 0.8};
+        EXPECT_TRUE(color*scalar == expected);
+        EXPECT_TRUE(scalar*color == expected);
+    }
+}
+
+TEST(TupleTests, ColorMultiplyTest)
+{
+    {
+        Color color1{1, 0.2, 0.4};
+        Color color2{0.9, 1, 0.1};
+        Color expected{0.9, 0.2, 0.04};
+        EXPECT_TRUE(color1*color2 == expected);
+    }
 }
