@@ -209,3 +209,5 @@ auto Identity() -> Matrix<T, N> {
     return buffer;
 }
 // template<typename = float, std::size_t = 4> auto Identity() -> Matrix<float, 4>;
+
+// auto Identity4f() -> Matrix4f;
