@@ -1,5 +1,17 @@
 #include "Tuple.h"
 
+namespace Factory {
+    auto Point(const float& x, const float& y, const float& z) -> Tuple {
+        return Tuple{x, y, z, 1.0};
+    }
+    auto Vector(const float& x, const float& y, const float& z) -> Tuple {
+        return Tuple{x, y, z, 0.0};
+    }
+}
+
+
+
+/*
 template class Tuple<float>;
 using TupleF = Tuple<float>;
 
@@ -19,3 +31,4 @@ auto PointF(const float& x, const float& y, const float& z) -> TupleF {
 auto VectorF(const float& x, const float& y, const float& z) -> TupleF {
     return Vector<float>(x, y, z);
 }
+*/

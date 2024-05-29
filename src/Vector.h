@@ -3,17 +3,22 @@
 #include "Constvals.h"
 
 #include <array>
+#include <cassert>
+#include <ranges>
+#include <cmath>
+
 using uint = unsigned int;
 
 template<typename T, std::size_t N>
 class Vector {
+protected:
     std::array<T, N> arr;
 
 public:
     Vector()
     : arr{}
     {}
-    Vector(std::array<T, N> list)
+    Vector(const std::array<T, N>& list)
     : arr{list}
     {}
 
@@ -38,7 +43,7 @@ public:
     }
 
     auto operator+(const Vector<T, N>& rhs) const -> Vector<T, N> {
-        std::array<T, N> buffer;
+        Vector<T, N> buffer;
         for (const auto& [i, val] : arr | std::ranges::views::enumerate) {
             buffer(i) = val + rhs(i);
         }
@@ -46,9 +51,33 @@ public:
     }
 
     auto operator-(const Vector<T, N>& rhs) const -> Vector<T, N> {
-        std::array<T, N> buffer;
+        Vector<T, N> buffer;
         for (const auto& [i, val] : arr | std::ranges::views::enumerate) {
             buffer(i) = val - rhs(i);
+        }
+        return buffer;
+    }
+
+    auto operator-() const -> Vector<T, N> {
+        Vector<T, N> buffer;
+        for (const auto& [i, val] : arr | std::ranges::views::enumerate) {
+            buffer(i) = 0.f - val;
+        }
+        return buffer;
+    }
+
+    auto operator*(const T& rhs) const -> Vector<T, N> {
+        Vector<T, N> buffer;
+        for (const auto& [i, val] : arr | std::ranges::views::enumerate) {
+            buffer(i) = val*rhs;
+        }
+        return buffer;
+    }
+
+    auto operator/(const T& rhs) const -> Vector<T, N> {
+        Vector<T, N> buffer;
+        for (const auto& [i, val] : arr | std::ranges::views::enumerate) {
+            buffer(i) = val/rhs;
         }
         return buffer;
     }
@@ -59,12 +88,7 @@ public:
 
     auto Normalize() const -> Vector<T, N> {
         const T mag{Magnitude()};
-        return {
-            this->x / mag,
-            this->y / mag,
-            this->z / mag,
-            this->w / mag
-        };
+        return *this/mag;
     }
 
     auto Dot(const Vector<T, N>& vec) const -> T {

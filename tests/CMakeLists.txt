@@ -1,6 +1,7 @@
 include(CTest)
 add_executable(ALL
     TupleTests.cpp
+    ColorTests.cpp
     CanvasTests.cpp
     MatricesTests.cpp
 )

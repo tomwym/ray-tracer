@@ -1,7 +1,8 @@
 add_library(ray-tracer-lib
+    Constvals.cpp
     TupleF.cpp
     Projectile.cpp
-    Constvals.cpp
+    Transformations.cpp
 )
 
 add_executable(projectile-renderer

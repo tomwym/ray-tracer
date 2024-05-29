@@ -6,17 +6,22 @@ public:
     Projectile(
         const float p_x, const float p_y, const float p_z,
         const float v_x, const float v_y, const float v_z)
-    : position{PointF(p_x, p_y, p_z)}
-    , velocity{PointF(v_x, v_y, v_z)}
+    : position{Factory::Point(p_x, p_y, p_z)}
+    , velocity{Factory::Point(v_x, v_y, v_z)}
     {}
 
-    Projectile(const TupleF& pos, const TupleF& vel)
+    Projectile(const Tuple& pos, const Tuple& vel)
     : position{pos}
     , velocity{vel}
     {}
 
-    TupleF position;
-    TupleF velocity;
+    auto operator=(const Projectile& other) -> Projectile& {
+        position = other.position;
+        velocity = other.velocity;
+    }
+
+    Tuple position;
+    Tuple velocity;
 };
 
 class Environment;

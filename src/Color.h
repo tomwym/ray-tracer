@@ -1,51 +1,51 @@
 #pragma once
 
-#include "Tuple.h"
+#include "Vector.h"
 
 #include <format>
 
-class Color : public TupleF {
+class Color : public Vector4f {
 public:
     float& red;
     float& green;
     float& blue;
 
-    Color(const TupleF& copy)
-    : TupleF{copy}
-    , red{TupleF::x}
-    , green{TupleF::y}
-    , blue{TupleF::z}
+    Color(const Vector4f& copy)
+    : Vector4f{copy}
+    , red{Vector4f::operator()(0)}
+    , green{Vector4f::operator()(1)}
+    , blue{Vector4f::operator()(2)}
     {
     }
 
     Color(const Color& copy)
-    : TupleF{copy}
-    , red{TupleF::x}
-    , green{TupleF::y}
-    , blue{TupleF::z}
+    : Vector4f{copy}
+    , red{Vector4f::operator()(0)}
+    , green{Vector4f::operator()(1)}
+    , blue{Vector4f::operator()(2)}
     {
     }
 
     auto operator=(const Color& rhs) -> Color& {
-        TupleF::operator=(rhs);
+        Vector4f::operator=(rhs);
 
-        red = TupleF::x;
-        green = TupleF::y;
-        blue = TupleF::z;
+        red = Vector4f::operator()(0);
+        green = Vector4f::operator()(1);
+        blue = Vector4f::operator()(2);
 
         return *this;
     }
 
     Color(const float& red, const float& green, const float& blue)
-    : TupleF{red, green, blue, 0.0f}
-    , red{TupleF::x}
-    , green{TupleF::y}
-    , blue{TupleF::z}
+    : Vector4f{{red, green, blue, 0.0f}}
+    , red{Vector4f::operator()(0)}
+    , green{Vector4f::operator()(1)}
+    , blue{Vector4f::operator()(2)}
     {
     }
 
     auto operator*(const float& scalar) const -> Color {
-        return TupleF::operator*(scalar);
+        return Vector4f::operator*(scalar);
     }
 
     auto operator*(const Color& rhs) -> Color {

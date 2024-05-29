@@ -3,6 +3,6 @@
 
 class Environment {
 public:
-    TupleF gravity;
-    TupleF wind;
+    Tuple gravity;
+    Tuple wind;
 };
