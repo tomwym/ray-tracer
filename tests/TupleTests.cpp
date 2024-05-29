@@ -4,6 +4,9 @@
 using namespace ::testing;
 
 #include "Tuple.h"
+#include "Point.h"
+#include "Vector.h"
+
 // #include "Color.h"
 #include "Constvals.h"
 
@@ -13,14 +16,16 @@ using namespace ::testing;
 TEST(TupleTests, PointTest)
 {
     Tuple expected{4, -4, 3, 1};
-    EXPECT_TRUE(Factory::Point(4, -4, 3) == expected);
+    Point point{4, -4, 3};
+    EXPECT_TRUE(point == expected);
 }
 
 
 TEST(TupleTests, VectorTest)
 {
     Tuple expected{4, -4, 3, 0};
-    EXPECT_TRUE(Factory::Vector(4, -4, 3) == expected);
+    Vector vector{4, -4, 3};
+    EXPECT_TRUE(vector == expected);
 }
 
 
@@ -51,21 +56,21 @@ TEST(TupleTests, AddTest)
 TEST(TupleTests, SubtractTest)
 {
     {
-        Tuple lhs{Factory::Point(3, 2, 1)};
-        Tuple rhs{Factory::Point(5, 6, 7)};
-        Tuple expected{Factory::Vector(-2, -4, -6)};
+        Tuple lhs{Point{3, 2, 1}};
+        Tuple rhs{Point{5, 6, 7}};
+        Tuple expected{Vector{-2, -4, -6}};
         EXPECT_TRUE(lhs - rhs == expected);
     }
     {
-        Tuple lhs{Factory::Point(3, 2, 1)};
-        Tuple rhs{Factory::Vector(5, 6, 7)};
-        Tuple expected{Factory::Point(-2, -4, -6)};
+        Tuple lhs{Point{3, 2, 1}};
+        Tuple rhs{Vector{5, 6, 7}};
+        Tuple expected{Point{-2, -4, -6}};
         EXPECT_TRUE(lhs - rhs == expected);
     }
     {
-        Tuple lhs{Factory::Vector(3, 2, 1)};
-        Tuple rhs{Factory::Vector(5, 6, 7)};
-        Tuple expected{Factory::Vector(-2, -4, -6)};
+        Tuple lhs{Vector{3, 2, 1}};
+        Tuple rhs{Vector{5, 6, 7}};
+        Tuple expected{Vector{-2, -4, -6}};
         EXPECT_TRUE(lhs - rhs == expected);
     }
 }
@@ -73,9 +78,9 @@ TEST(TupleTests, SubtractTest)
 TEST(TupleTests, NegateTest)
 {
     {
-        Tuple lhs{Factory::Vector(0, 0, 0)};
-        Tuple rhs{Factory::Vector(1, -2, 3)};
-        Tuple expected{Factory::Vector(-1, 2, -3)};
+        Tuple lhs{Vector{0, 0, 0}};
+        Tuple rhs{Vector{1, -2, 3}};
+        Tuple expected{Vector{-1, 2, -3}};
         EXPECT_TRUE(lhs - rhs == expected);
     }
     {
@@ -124,27 +129,27 @@ TEST(TupleTests, DivideScalarTest)
 TEST(TupleTests, MagnitudeTest)
 {
     {
-        Tuple tup{Factory::Vector(1, 0, 0)};
+        Tuple tup{Vector{1, 0, 0}};
         float expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
-        Tuple tup{Factory::Vector(0, 1, 0)};
+        Tuple tup{Vector{0, 1, 0}};
         float expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
-        Tuple tup{Factory::Vector(0, 0, 1)};
+        Tuple tup{Vector{0, 0, 1}};
         float expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
-        Tuple tup{Factory::Vector(1, 2, 3)};
+        Tuple tup{Vector{1, 2, 3}};
         float expected{std::sqrt(14.f)};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
-        Tuple tup{Factory::Vector(-1, -2, -3)};
+        Tuple tup{Vector{-1, -2, -3}};
         float expected{std::sqrt(14.f)};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
@@ -153,17 +158,17 @@ TEST(TupleTests, MagnitudeTest)
 TEST(TupleTests, NormalizeTest)
 {
     {
-        Tuple tup{Factory::Vector(4, 0, 0)};
-        Tuple expected{Factory::Vector(1, 0, 0)};
+        Tuple tup{Vector{4, 0, 0}};
+        Tuple expected{Vector{1, 0, 0}};
         EXPECT_TRUE(tup.Normalize() == expected);
     }
     {
-        Tuple tup{Factory::Vector(1, 2, 3)};
-        Tuple expected{Factory::Vector(0.26726, 0.53452, 0.80178)};
+        Tuple tup{Vector{1, 2, 3}};
+        Tuple expected{Vector{0.26726, 0.53452, 0.80178}};
         EXPECT_TRUE(tup.Normalize() == expected);
     }
     {
-        Tuple tup{Factory::Vector(1, 2, 3)};
+        Tuple tup{Vector{1, 2, 3}};
         float expected{1.0f};
         EXPECT_TRUE(EQF(tup.Normalize().Magnitude(), expected));
     }
@@ -172,11 +177,11 @@ TEST(TupleTests, NormalizeTest)
 TEST(TupleTests, CrossTest)
 {
     {
-        Tuple a{Factory::Vector(1, 2, 3)};
-        Tuple b{Factory::Vector(2, 3, 4)};
-        Tuple expected_axb{Factory::Vector(-1, 2, -1)};
-        Tuple expected_bxa{Factory::Vector(1, -2, 1)};
-        EXPECT_TRUE(a.Cross(b) == expected_axb);
-        EXPECT_TRUE(b.Cross(a) == expected_bxa);
+        Tuple vecA{Vector{1, 2, 3}};
+        Tuple vecB{Vector{2, 3, 4}};
+        Tuple expected_axb{Vector{-1, 2, -1}};
+        Tuple expected_bxa{Vector{1, -2, 1}};
+        EXPECT_TRUE(vecA.Cross(vecB) == expected_axb);
+        EXPECT_TRUE(vecB.Cross(vecA) == expected_bxa);
     }
 }

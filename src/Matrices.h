@@ -4,10 +4,12 @@
 #include <ranges>
 #include <type_traits>
 #include <iterator>
+#include <memory>
+#include <map>
 
 #include "Constvals.h"
 #include "GridLinearizer.h"
-#include "Vector.h"
+#include "Vector_t.h"
 
 using uint = unsigned int;
 
@@ -57,20 +59,20 @@ public:
         return !this->operator==(mat);
     }
 
-    auto Row(const unsigned int i) const -> Vector<T, N> {
+    auto Row(const unsigned int i) const -> Vector_t<T, N> {
         std::array<T, N> buffer;
         for (int j=0; j<N; ++j) {
             buffer[j] = arr[idx_cnvrt->Get(i,j)];
         }
-        return Vector<T, N>{buffer};
+        return Vector_t<T, N>{buffer};
     }
 
-    auto Col(const unsigned int j) const -> Vector<T, N> {
+    auto Col(const unsigned int j) const -> Vector_t<T, N> {
         std::array<T, N> buffer;
         for (int i=0; i<N; ++i) {
             buffer[i] = arr[idx_cnvrt->Get(i,j)];
         }
-        return Vector<T, N>{buffer};
+        return Vector_t<T, N>{buffer};
     }
 
     auto operator*(const T& rhs) const -> Matrix<T, N> {
@@ -85,12 +87,12 @@ public:
 
     auto operator*(const Matrix<T, N>& rhs) const -> Matrix<T, N> {
         Matrix<T, N> buffer;
-        std::map<uint, Vector<T, N>> col_map;
+        std::map<uint, Vector_t<T, N>> col_map;
         for (int j=0; j<N; ++j) {
             col_map[j] = rhs.Col(j);
         }
         for (int i=0; i<N; ++i) {
-            Vector<T, N> rowi{this->Row(i)};
+            Vector_t<T, N> rowi{this->Row(i)};
             for (int j=0; j<N; ++j) {
                 buffer(i, j) = rowi.Dot(col_map[j]);
             }
@@ -98,8 +100,8 @@ public:
         return buffer;
     }
 
-    auto operator*(const Vector<T, N>& rhs) const -> Vector<T, N> {
-        Vector<T, N> buffer;
+    auto operator*(const Vector_t<T, N>& rhs) const -> Vector_t<T, N> {
+        Vector_t<T, N> buffer;
         for (int i=0; i<N; ++i) {
             buffer(i) = this->Row(i).Dot(rhs);
         }
@@ -125,7 +127,7 @@ public:
     auto Determinant() const -> typename std::enable_if_t<(M > 2), T> {
         // perform over a column
         T det{0};
-        Vector<T, N> row{this->Row(0)};
+        Vector_t<T, N> row{this->Row(0)};
         for (int j=0; j<N; ++j) {
             det += row(j)*Cofactor(0,j);
         }

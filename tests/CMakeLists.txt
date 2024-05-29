@@ -4,6 +4,7 @@ add_executable(ALL
     ColorTests.cpp
     CanvasTests.cpp
     MatricesTests.cpp
+    TransformationsTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})

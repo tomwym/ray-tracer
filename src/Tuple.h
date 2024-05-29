@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector.h"
+#include "Vector_t.h"
 
 class Tuple : public Vector4f {
 public:
@@ -31,6 +31,8 @@ public:
         y = Vector4f::operator()(1);
         z = Vector4f::operator()(2);
         w = Vector4f::operator()(3);
+
+        return *this;
     }
 
     auto Cross(const Tuple& tup) const -> Tuple {
@@ -41,15 +43,9 @@ public:
             0.f
         };
     }
+
     float& x;
     float& y;
     float& z;
     float& w;
 };
-
-namespace Factory {
-
-auto Point(const float& x, const float& y, const float& z) -> Tuple;
-auto Vector(const float& x, const float& y, const float& z) -> Tuple;
-
-}
