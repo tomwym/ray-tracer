@@ -25,6 +25,18 @@ public:
     : arr{list}
     {}
 
+    Matrix(const Matrix<T,N>& copy) {
+        arr = copy.arr;
+        idx_cnvrt = std::make_unique<GridLinearizer>(*copy.idx_cnvrt);
+
+    }
+
+    auto operator=(const Matrix<T,N>& rhs) -> Matrix<T,N>& {
+        arr = rhs.arr;
+        idx_cnvrt = std::make_unique<GridLinearizer>(*rhs.idx_cnvrt);
+        return *this;
+    }
+
     auto operator()(const uint& ij) -> T& {
         return arr[ij];
     }

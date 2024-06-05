@@ -6,8 +6,6 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <sstream>
-#include <format>
 
 using PPM_t = std::string;
 
@@ -20,61 +18,14 @@ public:
     unsigned int height;
     unsigned int max_ppm{255};
 
-    Canvas(const unsigned int width, const unsigned int height, const Color& color = Color{0,0,0})
-    : width{width}
-    , height{height}
-    , idx_cnvrt{std::make_unique<GridLinearizer>(height, width)}
-    , pixels{std::vector<Color>(width*height, color)}
-    {}
+    Canvas(const unsigned int width, const unsigned int height, const Color& color = Color{0,0,0});
 
-    auto WritePixel(const int x, const unsigned int y, const Color& color) -> void {
-        pixels[idx_cnvrt->Get(y, x)] = color;
-    }
+    auto WritePixel(const int x, const unsigned int y, const Color& color) -> void;
+    auto PixelAt(const int x, const unsigned int y) const -> Color;
 
-    auto PixelAt(const int x, const unsigned int y) const -> Color {
-         return pixels[idx_cnvrt->Get(y, x)];
-    }
-
-    auto ToPPM() const -> PPM_t {
-        return PPMHeader() + PPMBody();
-    }
-
-    auto PPMHeader() const -> PPM_t {
-        std::stringstream ss;
-        ss << "P3\n";
-        ss << std::format("{} {}\n", std::to_string(width), std::to_string(height));
-        ss << "255\n";
-        return ss.str();
-    }
-
-    auto PPMBody() const -> PPM_t {
-        std::string buffer;
-        std::stringstream ss;
-        for (int y=0; y<height; ++y) {
-            for (int x=0; x<width; ++x) {
-                // The next color string to be added
-                std::string color_string{pixels[idx_cnvrt->Get(y, x)].String(255)};
-                // If the color string plus leading whitespace exceeds 70, flush the stream.
-                if (ss.str().size() + color_string.size() + 1 > 70) {
-                    ss << '\n';
-                    buffer += ss.str();
-                    ss.str(std::string{});
-                }
-                // If the stream is empty, ignore leading whitespace.
-                if (ss.str().size() == 0) {
-                    ss << color_string;
-                }
-                // Otherwise...
-                else {
-                    ss << ' ' << color_string;
-                }
-            }
-            ss << '\n';
-            buffer += ss.str();
-            ss.str(std::string{});
-        }
-        return buffer;
-    }
+    auto ToPPM() const -> PPM_t;
+    auto PPMHeader() const -> PPM_t;
+    auto PPMBody() const -> PPM_t;
 private:
 
 };

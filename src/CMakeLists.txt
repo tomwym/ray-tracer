@@ -1,7 +1,16 @@
 add_library(ray-tracer-lib
+    Canvas.cpp
+    Color.cpp
     Constvals.cpp
-    TupleF.cpp
+    GridLinearizer.cpp
+    Intersection.cpp
+    Material.cpp
+    Point.cpp
+    Ray.cpp
+    Sphere.cpp
     Transformations.cpp
+    Vector.cpp
 )
-add_subdirectory(ProjectileRenderer)
-add_subdirectory(Clock)
+add_subdirectory(01_ProjectileRenderer)
+add_subdirectory(04_Clock)
+add_subdirectory(05_Sphere)

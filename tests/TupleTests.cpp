@@ -185,3 +185,20 @@ TEST(TupleTests, CrossTest)
         EXPECT_TRUE(vecB.Cross(vecA) == expected_bxa);
     }
 }
+
+TEST(TupleTests, ReflectTest)
+{
+    {
+        Vector v{1,-1,0};
+        Vector n{0,1,0};
+        Vector expected{1,1,0};
+        EXPECT_EQ(v.Reflect(n), expected);
+    }
+    {
+        float rt2ov2{std::sqrt(2)/2.f};
+        Vector v{0,-1,0};
+        Vector n{rt2ov2,rt2ov2,0};
+        Vector expected{1,0,0};
+        EXPECT_EQ(v.Reflect(n), expected);
+    }
+}

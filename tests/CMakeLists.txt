@@ -5,6 +5,9 @@ add_executable(ALL
     CanvasTests.cpp
     MatricesTests.cpp
     TransformationsTests.cpp
+    RayTests.cpp
+    SphereTests.cpp
+    LightTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})
