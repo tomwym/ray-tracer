@@ -10,6 +10,7 @@ add_library(ray-tracer-lib
     Sphere.cpp
     Transformations.cpp
     Vector.cpp
+    World.cpp
 )
 add_subdirectory(01_ProjectileRenderer)
 add_subdirectory(04_Clock)

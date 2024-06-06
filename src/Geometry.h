@@ -11,6 +11,9 @@ class Point;
 class Vector;
 class Intersection;
 class Material_t;
+template<typename T, std::size_t N>
+class Matrix;
+using Matrix4f = Matrix<float, 4>;
 
 class Geometry {
 public:
@@ -18,4 +21,5 @@ public:
     virtual auto Intersects(const Ray& ray) const -> std::vector<Intersection> = 0;
     virtual auto Normal(const Point& world_point) const -> Vector = 0;
     virtual auto Material() const -> Material_t = 0;
+    virtual auto Transform() const -> Matrix4f = 0;
 };

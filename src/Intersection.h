@@ -11,6 +11,7 @@ public:
 
     Intersection(float t, std::unique_ptr<Geometry>&& geom);
     Intersection(const Intersection& copy);
+    auto operator=(const Intersection& rhs) -> Intersection&;
     auto operator==(const Intersection& rhs) const -> bool;
 };
 

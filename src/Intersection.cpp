@@ -17,6 +17,12 @@ Intersection::Intersection(const Intersection& copy)
 , geometry{copy.geometry->Clone()}
 {}
 
+auto Intersection::operator=(const Intersection& rhs) -> Intersection& {
+    t = rhs.t;
+    geometry = rhs.geometry->Clone();
+    return *this;
+}
+
 auto Intersection::operator==(const Intersection& rhs) const -> bool {
     return EQF(t, rhs.t);
     // geomtry->Interface() == rhs.geometry->Interface() &&

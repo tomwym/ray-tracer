@@ -11,6 +11,19 @@ public:
     float specular;
     float shininess;
 
+    Material_t(
+        const Color& color,
+        const float& ambient,
+        const float& diffuse,
+        const float& specular,
+        const float& shininess)
+    : color{color}
+    , ambient{ambient}
+    , diffuse{diffuse}
+    , specular{specular}
+    , shininess{shininess}
+    {}
+
     Material_t()
     : color{1,1,1}
     , ambient{0.1f}

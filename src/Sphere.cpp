@@ -6,6 +6,11 @@
 #include "Point.h"
 #include "Vector.h"
 
+Sphere::Sphere(const Matrix4f& transform, const Material_t& material)
+: transform{transform}
+, material{material}
+{}
+
 auto Sphere::Clone() const -> GeometryPtr {
     return std::make_unique<Sphere>(*this);
 }
@@ -52,4 +57,8 @@ auto Sphere::Material() const -> Material_t {
 
 auto Sphere::Material(const Material_t& mat) -> void {
     material = mat;
+}
+
+auto SphereFactory(const Matrix4f& transform, const Material_t& material) -> GeometryPtr {
+    return std::make_unique<Sphere>(transform, material);
 }

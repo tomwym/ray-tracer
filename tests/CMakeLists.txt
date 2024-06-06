@@ -8,6 +8,7 @@ add_executable(ALL
     RayTests.cpp
     SphereTests.cpp
     LightTests.cpp
+    WorldTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})
