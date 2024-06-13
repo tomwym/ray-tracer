@@ -163,3 +163,27 @@ TEST(TransformationsTest, ChainingTest)
         EXPECT_TRUE(transform*point == (Point{15,0,7}));
     }
 }
+
+TEST(TransformationsTest, ViewTransformTest)
+{
+    {
+        Point from{0,0,8};
+        Point to{0,0,0};
+        Vector up{0,1,0};
+        Matrix4f t{ViewTransform(from, to, up)};
+        EXPECT_EQ(t, Transformations::Translation(0,0,-8));
+    }
+    {
+        Point from{1,3,2};
+        Point to{4,-2,8};
+        Vector up{1,1,0};
+        Matrix4f t{ViewTransform(from, to, up)};
+        Matrix4f expected{{
+            -0.50709,0.50709, 0.67612,-2.36643,
+             0.76772,0.60609, 0.12122,-2.82843,
+            -0.35857,0.59761,-0.71714, 0.00000,
+             0.00000,0.00000, 0.00000, 1.00000
+        }};
+        EXPECT_EQ(t, expected);
+    }
+}

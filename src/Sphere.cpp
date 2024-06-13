@@ -55,6 +55,10 @@ auto Sphere::Material() const -> Material_t {
     return material;
 }
 
+auto Sphere::Material() -> Material_t& {
+    return material;
+}
+
 auto Sphere::Material(const Material_t& mat) -> void {
     material = mat;
 }

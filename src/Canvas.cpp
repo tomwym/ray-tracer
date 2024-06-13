@@ -10,12 +10,12 @@ Canvas::Canvas(const unsigned int width, const unsigned int height, const Color&
 , pixels{std::vector<Color>(width*height, color)}
 {}
 
-auto Canvas::WritePixel(const int x, const unsigned int y, const Color& color) -> void {
+auto Canvas::WritePixel(const unsigned int x, const unsigned int y, const Color& color) -> void {
     pixels[idx_cnvrt->Get(y, x)] = color;
 }
 
-auto Canvas::PixelAt(const int x, const unsigned int y) const -> Color {
-        return pixels[idx_cnvrt->Get(y, x)];
+auto Canvas::PixelAt(const unsigned int x, const unsigned int y) const -> Color {
+    return pixels[idx_cnvrt->Get(y, x)];
 }
 
 auto Canvas::ToPPM() const -> PPM_t {

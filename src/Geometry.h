@@ -21,5 +21,6 @@ public:
     virtual auto Intersects(const Ray& ray) const -> std::vector<Intersection> = 0;
     virtual auto Normal(const Point& world_point) const -> Vector = 0;
     virtual auto Material() const -> Material_t = 0;
+    virtual auto Material() -> Material_t& = 0;
     virtual auto Transform() const -> Matrix4f = 0;
 };

@@ -1,4 +1,6 @@
 #include "Transformations.h"
+#include "Point.h"
+#include "Vector.h"
 
 #include <cmath>
 
@@ -60,4 +62,17 @@ auto Transformations::Shearing(const float& xy, const float& xz,
     buffer(2,0) = zx;
     buffer(2,1) = zy;
     return buffer;
+}
+
+auto ViewTransform(const Point& from, const Point& to, const Vector& up) -> Matrix4f {
+    Vector forward{(to - from).Normalize()};
+    Vector left{forward.Cross(up.Normalize())};
+    Vector true_up{left.Cross(forward)};
+    Matrix4f orientation{{
+        left.x,left.y,left.z,0.f,
+        true_up.x,true_up.y,true_up.z,0.f,
+        -forward.x,-forward.y,-forward.z,0.f,
+        0.f,0.f,0.f,1.f
+    }};
+    return orientation * Transformations::Translation(-from.x,-from.y,-from.z);
 }

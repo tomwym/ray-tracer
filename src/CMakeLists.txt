@@ -1,5 +1,6 @@
 add_library(ray-tracer-lib
     Canvas.cpp
+    Camera.cpp
     Color.cpp
     Constvals.cpp
     GridLinearizer.cpp
@@ -15,3 +16,4 @@ add_library(ray-tracer-lib
 add_subdirectory(01_ProjectileRenderer)
 add_subdirectory(04_Clock)
 add_subdirectory(05_Sphere)
+add_subdirectory(07_Scene)

@@ -9,6 +9,8 @@ add_executable(ALL
     SphereTests.cpp
     LightTests.cpp
     WorldTests.cpp
+    IntersectionTests.cpp
+    CameraTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})

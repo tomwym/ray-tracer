@@ -23,6 +23,7 @@ public:
     auto Intersects(const Ray& ray) const -> std::vector<Intersection> override;
     auto Normal(const Point& world_point) const -> Vector override;
     auto Material() const -> Material_t override;
+    auto Material() -> Material_t& override;
     auto Material(const Material_t& mat) -> void;
 };
 

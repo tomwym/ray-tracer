@@ -4,15 +4,33 @@
 
 #include <memory>
 
+class Point;
+//class Ray;
+
+class IntersectionComputation {
+public:
+    IntersectionComputation(
+        const Intersection& intersection,
+        const Ray& ray
+    );
+    std::unique_ptr<Intersection> intersection;
+    std::unique_ptr<Point> point;
+    std::unique_ptr<Vector> eyev;
+    std::unique_ptr<Vector> normalv;
+    bool inside;
+};
+
 class Intersection {
 public:
-    std::unique_ptr<Geometry> geometry;
     float t;
+    std::unique_ptr<Geometry> geometry;
 
     Intersection(float t, std::unique_ptr<Geometry>&& geom);
     Intersection(const Intersection& copy);
     auto operator=(const Intersection& rhs) -> Intersection&;
     auto operator==(const Intersection& rhs) const -> bool;
+
+    auto PrepareComputations(const Ray& ray) const -> IntersectionComputation;
 };
 
 using Intersections = std::vector<Intersection>;

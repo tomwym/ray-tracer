@@ -20,8 +20,8 @@ public:
 
     Canvas(const unsigned int width, const unsigned int height, const Color& color = Color{0,0,0});
 
-    auto WritePixel(const int x, const unsigned int y, const Color& color) -> void;
-    auto PixelAt(const int x, const unsigned int y) const -> Color;
+    auto WritePixel(const unsigned int x, const unsigned int y, const Color& color) -> void;
+    auto PixelAt(const unsigned int x, const unsigned int y) const -> Color;
 
     auto ToPPM() const -> PPM_t;
     auto PPMHeader() const -> PPM_t;

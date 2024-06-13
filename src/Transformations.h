@@ -14,3 +14,7 @@ public:
                          const float& zx, const float& zy) -> Matrix4f;
 
 };
+
+class Point;
+class Vector;
+auto ViewTransform(const Point& from, const Point& to, const Vector& up) -> Matrix4f;

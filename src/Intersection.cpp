@@ -1,4 +1,5 @@
 #include "Intersection.h"
+#include "Ray.h"
 
 #include "Constvals.h"
 
@@ -6,6 +7,22 @@
 #include <limits>
 #include <ranges>
 #include <cassert>
+
+IntersectionComputation::IntersectionComputation(
+    const Intersection& intersection,
+    const Ray& ray
+)
+: intersection{std::make_unique<Intersection>(intersection)}
+, point{std::make_unique<Point>(ray.Position(intersection.t))}
+, eyev{std::make_unique<Vector>(-ray.direction)}
+, normalv{std::make_unique<Vector>(intersection.geometry->Normal(*point))}
+, inside{false}
+{
+    if (normalv->Dot(*eyev) < 0.f) {
+        inside = true;
+        normalv = std::make_unique<Vector>(-*normalv);
+    }
+}
 
 Intersection::Intersection(float t, std::unique_ptr<Geometry>&& geom)
 : t{t}
@@ -26,6 +43,10 @@ auto Intersection::operator=(const Intersection& rhs) -> Intersection& {
 auto Intersection::operator==(const Intersection& rhs) const -> bool {
     return EQF(t, rhs.t);
     // geomtry->Interface() == rhs.geometry->Interface() &&
+}
+
+auto Intersection::PrepareComputations(const Ray& ray) const -> IntersectionComputation {
+    return IntersectionComputation(*this, ray);
 }
 
 auto Hit(const Intersections& intersections) -> Intersection {
