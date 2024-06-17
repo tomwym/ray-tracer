@@ -7,6 +7,7 @@ using namespace ::testing;
 #include "Sphere.h"
 #include "Intersection.h"
 #include "Ray.h"
+#include "Transformations.h"
 
 TEST(IntersectionTests, IntersectionTest)
 {
@@ -78,4 +79,19 @@ TEST(IntersectionTests, PrepareComputationsInsideOutTest)
         EXPECT_EQ(*computations.normalv, Vector(0,0,-1));
         EXPECT_EQ(computations.inside, true);
     }
+}
+
+TEST(IntersectionTests, OverPointTest)
+{
+    {
+        Ray ray{Point{0,0,-5},Vector{0,0,1}};
+        Matrix4f transform{Transformations::Translation(0,0,1)};
+        Sphere s;
+        s.Transform(transform);
+        Intersection i{5,std::make_unique<Sphere>(s)};
+        IntersectionComputation comps {i.PrepareComputations(ray)};
+        EXPECT_TRUE(comps.over_point->z < -EPSILON/2.f);
+        EXPECT_TRUE(comps.point->z > comps.over_point->z);
+    }
+
 }

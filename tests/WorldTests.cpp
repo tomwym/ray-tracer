@@ -89,3 +89,27 @@ TEST(WorldTests, ColorAtTest)
         EXPECT_EQ(c, world.geometries[1]->Material().color);
     }
 }
+
+TEST(WorldTests, PointShadowedTest)
+{
+    {
+        World world{WorldFactory::DefaultWorld()};
+        Point p{0,10,0};
+        EXPECT_FALSE(world.PointShadowed(p));
+    }
+    {
+        World world{WorldFactory::DefaultWorld()};
+        Point p{10,-10,10};
+        EXPECT_TRUE(world.PointShadowed(p));
+    }
+    {
+        World world{WorldFactory::DefaultWorld()};
+        Point p{-20,20,-20};
+        EXPECT_FALSE(world.PointShadowed(p));
+    }
+    {
+        World world{WorldFactory::DefaultWorld()};
+        Point p{-2,2,-2};
+        EXPECT_FALSE(world.PointShadowed(p));
+    }
+}

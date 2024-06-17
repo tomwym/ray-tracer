@@ -91,7 +91,7 @@ int main() {
                 Point surface_point{ray.Position(first_hit.t)};
                 Vector norm{first_hit.geometry->Normal(surface_point)};
                 Vector eye{-ray.direction};
-                Color color{Lighting(first_hit.geometry->Material(),light,surface_point,eye,norm)};
+                Color color{Lighting(first_hit.geometry->Material(),light,surface_point,eye,norm,false)};
                 canvas.WritePixel(j, i, color);
             }
         }

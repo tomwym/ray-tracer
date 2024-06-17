@@ -28,7 +28,7 @@ TEST(MaterialTests, LightingTest)
         Vector eye{0,0,-1};
         Vector norm{0,0,-1};
         Light light{Point{0,0,-10},Color{1,1,1}};
-        EXPECT_EQ(Lighting(mat,light,position,eye,norm), Color(1.9f,1.9f,1.9f));
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,false), Color(1.9f,1.9f,1.9f));
     }
     {
         Material_t mat;
@@ -37,7 +37,7 @@ TEST(MaterialTests, LightingTest)
         Vector eye{0,sq2,-sq2};
         Vector norm{0,0,-1};
         Light light{Point{0,0,-10},Color{1,1,1}};
-        EXPECT_EQ(Lighting(mat,light,position,eye,norm), Color(1.f,1.f,1.f));
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,false), Color(1.f,1.f,1.f));
     }
     {
         Material_t mat;
@@ -45,7 +45,7 @@ TEST(MaterialTests, LightingTest)
         Vector eye{0,0,-1};
         Vector norm{0,0,-1};
         Light light{Point{0,10,-10},Color{1,1,1}};
-        EXPECT_EQ(Lighting(mat,light,position,eye,norm), Color(0.7364f,0.7364f,0.7364f));
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,false), Color(0.7364f,0.7364f,0.7364f));
     }
     {
         Material_t mat;
@@ -54,7 +54,7 @@ TEST(MaterialTests, LightingTest)
         Vector eye{0,-sq2,-sq2};
         Vector norm{0,0,-1};
         Light light{Point{0,10,-10},Color{1,1,1}};
-        EXPECT_EQ(Lighting(mat,light,position,eye,norm), Color(1.6364f,1.6364f,1.6364f));
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,false), Color(1.6364f,1.6364f,1.6364f));
     }
     {
         Material_t mat;
@@ -62,6 +62,14 @@ TEST(MaterialTests, LightingTest)
         Vector eye{0,0,-1};
         Vector norm{0,0,-1};
         Light light{Point{0,0,-10},Color{1,1,1}};
-        EXPECT_EQ(Lighting(mat,light,position,eye,norm), Color(0.1f,0.1f,0.1f));
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,false), Color(0.1f,0.1f,0.1f));
+    }
+    {
+        Material_t mat;
+        Point position{0,0,0};
+        Vector eye{0,0,-1};
+        Vector norm{0,0,-1};
+        Light light{Point{0,0,-10},Color{1,1,1}};
+        EXPECT_EQ(Lighting(mat,light,position,eye,norm,true), Color(0.1f,0.1f,0.1f));
     }
 }

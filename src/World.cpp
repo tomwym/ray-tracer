@@ -28,19 +28,9 @@ auto World::Intersect(const Ray& ray) const -> Intersections {
     return buffer;
 }
 
-auto World::ShadeHit(const IntersectionComputation& computation) const -> Color {
-    return Lighting(
-        computation.intersection->geometry->Material(),
-        *light,
-        *computation.point,
-        *computation.eyev,
-        *computation.normalv
-    );
-}
-
 auto World::ColorAt(const Ray& ray) const -> Color {
     Intersections xs{Intersect(ray)};
-    auto IntersectionPositive{[](const Intersection& x) -> bool { return x.t > 0; }};
+    auto IntersectionPositive{[](const Intersection& x) -> bool { return x.t > EPSILON; }};
     auto it{std::find_if(xs.begin(), xs.end(), IntersectionPositive)};
     if (it == xs.end()) {
         return Color{0,0,0};
@@ -48,6 +38,29 @@ auto World::ColorAt(const Ray& ray) const -> Color {
     IntersectionComputation comp{it->PrepareComputations(ray)};
     return ShadeHit(comp);
 }
+
+auto World::ShadeHit(const IntersectionComputation& computation) const -> Color {
+    return Lighting(
+        computation.intersection->geometry->Material(),
+        *light,
+        *computation.point,
+        *computation.eyev,
+        *computation.normalv,
+        PointShadowed(*computation.over_point)
+    );
+}
+
+auto World::PointShadowed(const Point& point) const -> bool {
+    Vector diff{light->position - point};
+    float mag{diff.Magnitude()};
+
+    Ray ray{point, diff.Normalize()};
+    Intersections xs{Intersect(ray)};
+    auto IntersectionPositiveAndLessThanMag{[mag](const Intersection& x) -> bool { return x.t > EPSILON && x.t < mag; }};
+    auto it{std::find_if(xs.begin(), xs.end(), IntersectionPositiveAndLessThanMag)};
+    return it != xs.end();
+}
+
 
 
 auto WorldFactory::DefaultWorld() -> World {

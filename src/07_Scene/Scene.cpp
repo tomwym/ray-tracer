@@ -21,16 +21,8 @@ int main() {
         Point{0,1,0},
         Vector{0,1,0}
     )};
-    Camera camera{500,250,nums::pi/3.f,transform};
-    {
-        // floor
-        Matrix4f transform{Transformations::Scaling(10,0.01,10)};
-        Material_t mat;
-        mat.color = Color{1,0.9,0.9};
-        mat.specular = 0.f;
-        std::unique_ptr<Geometry> sphere{std::make_unique<Sphere>(transform, mat)};
-        world.AddGeometry(std::move(sphere));
-    }
+    Camera camera{100,50,nums::pi/3.f,transform};
+
     {
         // left wall
         Matrix4f transform{
@@ -40,6 +32,15 @@ int main() {
             Transformations::Scaling(10,0.01,10)
         };
         Material_t mat;
+        std::unique_ptr<Geometry> sphere{std::make_unique<Sphere>(transform, mat)};
+        world.AddGeometry(std::move(sphere));
+    }    /*
+    {
+        // floor
+        Matrix4f transform{Transformations::Scaling(10,0.01,10)};
+        Material_t mat;
+        mat.color = Color{1,0.9,0.9};
+        mat.specular = 0.f;
         std::unique_ptr<Geometry> sphere{std::make_unique<Sphere>(transform, mat)};
         world.AddGeometry(std::move(sphere));
     }
@@ -91,7 +92,7 @@ int main() {
         std::unique_ptr<Geometry> sphere{std::make_unique<Sphere>(transform, mat)};
         world.AddGeometry(std::move(sphere));
     }
-
+    */
     Canvas canvas{camera.Render(world)};
     std::ofstream file{"res/scene.ppm", std::ios::trunc};
     file << canvas.ToPPM();

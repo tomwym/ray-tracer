@@ -17,6 +17,7 @@ public:
     std::unique_ptr<Point> point;
     std::unique_ptr<Vector> eyev;
     std::unique_ptr<Vector> normalv;
+    std::unique_ptr<Point> over_point;
     bool inside;
 };
 

@@ -52,4 +52,5 @@ auto Lighting(
     const Light& light,
     const Point& pos,
     const Vector& eye,
-    const Vector& norm) -> Color;
+    const Vector& norm,
+    const bool in_shadow) -> Color;

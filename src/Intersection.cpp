@@ -16,11 +16,13 @@ IntersectionComputation::IntersectionComputation(
 , point{std::make_unique<Point>(ray.Position(intersection.t))}
 , eyev{std::make_unique<Vector>(-ray.direction)}
 , normalv{std::make_unique<Vector>(intersection.geometry->Normal(*point))}
+, over_point{std::make_unique<Point>(*point + normalv->Normalize()*(EPSILON))}
 , inside{false}
 {
     if (normalv->Dot(*eyev) < 0.f) {
         inside = true;
         normalv = std::make_unique<Vector>(-*normalv);
+        over_point = std::make_unique<Point>(*point + normalv->Normalize()*(EPSILON));
     }
 }
 

@@ -29,17 +29,17 @@ auto Sphere::Transform(const Matrix4f& other) -> void {
 auto Sphere::Intersects(const Ray& ray) const -> std::vector<Intersection> {
     Ray ray2{ray.Transform(Transform().Inverse())};
     Vector sphere_to_ray{ray2.origin - Point{0,0,0}};
-    float a{ray2.direction.Dot(ray2.direction)};
-    float b{2*ray2.direction.Dot(sphere_to_ray)};
-    float c{sphere_to_ray.Dot(sphere_to_ray) - 1.f};
-    float discriminant{b*b-4*a*c};
+    double a{ray2.direction.Dot(ray2.direction)};
+    double b{2.f*ray2.direction.Dot(sphere_to_ray)};
+    double c{sphere_to_ray.Dot(sphere_to_ray) - 1.f};
+    double discriminant{b*b-4.f*a*c};
 
-    if (discriminant < 0) {
+    if (discriminant < EPSILON) {
         return {};
     }
     std::vector<Intersection> result;
-    result.emplace_back(Intersection{(-b-std::sqrt(discriminant))/(2*a), std::make_unique<Sphere>(*this)});
-    result.emplace_back(Intersection{(-b+std::sqrt(discriminant))/(2*a), std::make_unique<Sphere>(*this)});
+    result.emplace_back(Intersection{(-b-std::sqrt(discriminant))/(2.f*a), std::make_unique<Sphere>(*this)});
+    result.emplace_back(Intersection{(-b+std::sqrt(discriminant))/(2.f*a), std::make_unique<Sphere>(*this)});
     return result;
 }
 
