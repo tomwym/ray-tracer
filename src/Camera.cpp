@@ -6,20 +6,20 @@
 #include <cmath>
 
 struct Initializers {
-    float pixel_dimension;
-    float half_width;
-    float half_height;
+    double pixel_dimension;
+    double half_width;
+    double half_height;
 };
 
 Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov)
-: Camera{hsize,vsize,fov,Identity<float,4>(),GetInitializers(hsize,vsize,fov)}
+: Camera{hsize,vsize,fov,Identity<double,4>(),GetInitializers(hsize,vsize,fov)}
 {}
 
-Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov, const Matrix4f& transform)
+Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov, const Matrix4d& transform)
 : Camera{hsize,vsize,fov,transform,GetInitializers(hsize,vsize,fov)}
 {}
 
-Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov, const Matrix4f& transform, const Initializers& values)
+Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov, const Matrix4d& transform, const Initializers& values)
 : hsize{hsize}
 , vsize{vsize}
 , fov{fov}
@@ -31,10 +31,10 @@ Camera::Camera(const PixelCount& hsize, const PixelCount& vsize, const Radians& 
 
 auto Camera::GetInitializers(const PixelCount& hsize, const PixelCount& vsize, const Radians& fov) const -> Initializers {
     Radians half_view{std::tan(fov/2)};
-    float aspect{(float)hsize/(float)vsize};
+    double aspect{(double)hsize/(double)vsize};
 
-    float half_width;
-    float half_height;
+    double half_width;
+    double half_height;
     if (aspect >= 1) { // landscape
         half_width = half_view;
         half_height = half_view / aspect;
@@ -47,11 +47,11 @@ auto Camera::GetInitializers(const PixelCount& hsize, const PixelCount& vsize, c
 }
 
 auto Camera::RayThroughPixel(const uint& px, const uint& py) const -> Ray {
-    float xoffset{(px + 0.5f) * pixel_dimension};
-    float yoffset{(py + 0.5f) * pixel_dimension};
+    double xoffset{(px + 0.5f) * pixel_dimension};
+    double yoffset{(py + 0.5f) * pixel_dimension};
 
-    float world_x{half_width - xoffset};
-    float world_y{half_height - yoffset};
+    double world_x{half_width - xoffset};
+    double world_y{half_height - yoffset};
 
     Point pixel{transform.Inverse() * Point{world_x, world_y, -1}};
     Point origin{transform.Inverse() * Point{0,0,0}};

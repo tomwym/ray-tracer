@@ -4,16 +4,16 @@
 
 class Color : public Vector4f {
 public:
-    float& red;
-    float& green;
-    float& blue;
+    double& red;
+    double& green;
+    double& blue;
 
     Color(const Vector4f& copy);
     Color(const Color& copy);
-    Color(const float& red, const float& green, const float& blue);
+    Color(const double& red, const double& green, const double& blue);
 
     auto operator=(const Color& rhs) -> Color&;
-    auto operator*(const float& scalar) const -> Color;
+    auto operator*(const double& scalar) const -> Color;
     auto operator*(const Color& rhs) const -> Color;
 
     auto String(const int& scale=1) const -> std::string;

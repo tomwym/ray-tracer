@@ -20,12 +20,12 @@ TEST(CameraTests, InitializerTest)
     {
         unsigned int hsize{160};
         unsigned int vsize{120};
-        float fov{nums::pi/2.f};
+        double fov{nums::pi/2.f};
         Camera c{hsize,vsize,fov};
         EXPECT_EQ(c.hsize, hsize);
         EXPECT_EQ(c.vsize, vsize);
         EXPECT_EQ(c.fov, fov);
-        EXPECT_EQ(c.transform, (Identity<float,4>()));
+        EXPECT_EQ(c.transform, (Identity<double,4>()));
     }
 }
 
@@ -56,7 +56,7 @@ TEST(CameraTests, RayThroughPixelTest)
         EXPECT_EQ(ray.direction, Vector(0.66519,0.33259,-0.66851));
     }
     {
-        Matrix4f transform{Transformations::RotationY(nums::pi/4.f) * Transformations::Translation(0,-2,5)};
+        Matrix4d transform{Transformations::RotationY(nums::pi/4.f) * Transformations::Translation(0,-2,5)};
         Camera c{201,101,nums::pi/2.f,transform};
         Ray ray{c.RayThroughPixel(100,50)};
         EXPECT_EQ(ray.origin, Point(0,2,-5));
@@ -71,7 +71,7 @@ TEST(CameraTests, RenderTest)
         Point from{0,0,-5};
         Point to{0,0,0};
         Vector up{0,1,0};
-        Matrix4f transform{ViewTransform(from, to, up)};
+        Matrix4d transform{ViewTransform(from, to, up)};
         Camera camera{11,11,nums::pi/2.f,transform};
         Canvas canvas{camera.Render(world)};
         EXPECT_EQ(canvas.PixelAt(5,5), Color(0.38066, 0.47583, 0.2855));

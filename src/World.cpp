@@ -52,7 +52,7 @@ auto World::ShadeHit(const IntersectionComputation& computation) const -> Color 
 
 auto World::PointShadowed(const Point& point) const -> bool {
     Vector diff{light->position - point};
-    float mag{diff.Magnitude()};
+    double mag{diff.Magnitude()};
 
     Ray ray{point, diff.Normalize()};
     Intersections xs{Intersect(ray)};

@@ -1,6 +1,6 @@
 #include "Vector.h"
 
-Vector::Vector(const float& x, const float& y, const float& z)
+Vector::Vector(const double& x, const double& y, const double& z)
 : Tuple{x,y,z,0.f}
 {}
 

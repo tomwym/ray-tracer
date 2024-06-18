@@ -33,7 +33,7 @@ TEST(MaterialTests, LightingTest)
     {
         Material_t mat;
         Point position{0,0,0};
-        float sq2{std::sqrt(2)/2.f};
+        double sq2{std::sqrt(2)/2.f};
         Vector eye{0,sq2,-sq2};
         Vector norm{0,0,-1};
         Light light{Point{0,0,-10},Color{1,1,1}};
@@ -50,7 +50,7 @@ TEST(MaterialTests, LightingTest)
     {
         Material_t mat;
         Point position{0,0,0};
-        float sq2{std::sqrt(2)/2.f};
+        double sq2{std::sqrt(2)/2.f};
         Vector eye{0,-sq2,-sq2};
         Vector norm{0,0,-1};
         Light light{Point{0,10,-10},Color{1,1,1}};

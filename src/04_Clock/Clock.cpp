@@ -10,9 +10,9 @@ int main() {
     unsigned int dim{120};
     Canvas canvas{dim,dim};
     Color white{1,1,1};
-    float radius{dim*0.4f};
+    double radius{dim*0.4f};
     Point point{radius,0,0};
-    float angle{0.f};
+    double angle{0.f};
     for (int i=0; i<12; ++i) {
         Point transformed_point{Transformations::Translation(dim/2,dim/2,0)*Transformations::RotationZ(angle)*point};
         canvas.WritePixel(transformed_point.x, transformed_point.y, white);

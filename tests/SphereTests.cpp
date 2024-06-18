@@ -15,11 +15,11 @@ TEST(SphereTests, TransformTest)
 {
     {
         Sphere sphere;
-        EXPECT_EQ(sphere.Transform(), (Identity<float, 4>()));
+        EXPECT_EQ(sphere.Transform(), (Identity<double, 4>()));
     }
     {
         Sphere sphere;
-        Matrix4f transform{Transformations::Translation(2,3,4)};
+        Matrix4d transform{Transformations::Translation(2,3,4)};
         sphere.Transform(transform);
         EXPECT_EQ(sphere.Transform(), transform);
     }
@@ -67,15 +67,15 @@ TEST(SphereTests, NormalTest)
     }
     {
         Sphere s;
-        float val{std::sqrt(3)/3.f};
+        double val{std::sqrt(3)/3.f};
         Point p{val,val,val};
         Vector v{val,val,val};
         EXPECT_EQ(s.Normal(p),v);
     }
     {
         Sphere s;
-        float val{std::sqrt(3)};
-        float valdiv3{val/3.f};
+        double val{std::sqrt(3)};
+        double valdiv3{val/3.f};
         Point p{val,val,val};
         Vector v{valdiv3,valdiv3,valdiv3};
         EXPECT_EQ(s.Normal(p),v);

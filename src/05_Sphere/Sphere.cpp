@@ -20,7 +20,7 @@ struct P {
 };
 using Pi = P<int>;
 using Pui = P<uint>;
-using Pf = P<float>;
+using Pf = P<double>;
 
 class XYMapper {
 public:
@@ -42,8 +42,8 @@ public:
     , min{min_x, min_y}
     , z{z}
     , pixels{pixel_x, pixel_y}
-    , dpixel{(max_x - min_x)/((float)pixel_x),
-             (max_y - min_y)/((float)pixel_y)}
+    , dpixel{(max_x - min_x)/((double)pixel_x),
+             (max_y - min_y)/((double)pixel_y)}
     {}
 
     auto GetRayAtPixel(const uint i, const uint j) const -> Ray {
@@ -51,7 +51,7 @@ public:
         return Ray{origin, (Point(x, y, z) - origin).Normalize()};
     }
 
-    auto MapPixelToXY(const uint i, const uint j) const -> std::tuple<float, float> {
+    auto MapPixelToXY(const uint i, const uint j) const -> std::tuple<double, double> {
         return {
             min.x + dpixel.x*0.5 + j*dpixel.x,
             max.y - dpixel.y*0.5 - i*dpixel.y
@@ -73,7 +73,7 @@ int main() {
 
     Material_t mat;
     mat.color = Color{1,0.2,1};
-    Matrix4f transform {Transformations::Scaling(2,1,1)};
+    Matrix4d transform {Transformations::Scaling(2,1,1)};
     Sphere s;
     s.Material(mat);
     s.Transform(transform);

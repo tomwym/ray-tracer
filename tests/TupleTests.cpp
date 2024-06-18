@@ -95,14 +95,14 @@ TEST(TupleTests, MultiplyScalarTest)
     {
         Tuple tup{1, -2, 3, -4};
         Tuple expected{3.5, -7, 10.5, -14};
-        float scalar{3.5f};
+        double scalar{3.5f};
         EXPECT_TRUE(tup*scalar == expected);
 
     }
     {
         Tuple tup{1, -2, 3, -4};
         Tuple expected{0.5, -1, 1.5, -2};
-        float scalar{0.5f};
+        double scalar{0.5f};
         EXPECT_TRUE(tup*scalar == expected);
     }
 }
@@ -112,12 +112,12 @@ TEST(TupleTests, DivideScalarTest)
     {
         Tuple tup{1, -2, 3, -4};
         Tuple expected{0.5, -1, 1.5, -2};
-        float scalar{2};
+        double scalar{2};
         EXPECT_TRUE(tup/scalar == expected);
     }
     {
         Tuple tup{1, -2, 3, -4};
-        float scalar{0};
+        double scalar{0};
         Tuple out{tup/scalar};
         EXPECT_TRUE(std::isinf(out.x));
         EXPECT_TRUE(std::isinf(out.y));
@@ -130,27 +130,27 @@ TEST(TupleTests, MagnitudeTest)
 {
     {
         Tuple tup{Vector{1, 0, 0}};
-        float expected{1};
+        double expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
         Tuple tup{Vector{0, 1, 0}};
-        float expected{1};
+        double expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
         Tuple tup{Vector{0, 0, 1}};
-        float expected{1};
+        double expected{1};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
         Tuple tup{Vector{1, 2, 3}};
-        float expected{std::sqrt(14.f)};
+        double expected{std::sqrt(14.f)};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
     {
         Tuple tup{Vector{-1, -2, -3}};
-        float expected{std::sqrt(14.f)};
+        double expected{std::sqrt(14.f)};
         EXPECT_TRUE(tup.Magnitude() == expected);
     }
 }
@@ -169,7 +169,7 @@ TEST(TupleTests, NormalizeTest)
     }
     {
         Tuple tup{Vector{1, 2, 3}};
-        float expected{1.0f};
+        double expected{1.0f};
         EXPECT_TRUE(EQF(tup.Normalize().Magnitude(), expected));
     }
 }
@@ -195,7 +195,7 @@ TEST(TupleTests, ReflectTest)
         EXPECT_EQ(v.Reflect(n), expected);
     }
     {
-        float rt2ov2{std::sqrt(2)/2.f};
+        double rt2ov2{std::sqrt(2)/2.f};
         Vector v{0,-1,0};
         Vector n{rt2ov2,rt2ov2,0};
         Vector expected{1,0,0};

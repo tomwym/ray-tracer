@@ -6,17 +6,17 @@
 class Material_t {
 public:
     Color color;
-    float ambient;
-    float diffuse;
-    float specular;
-    float shininess;
+    double ambient;
+    double diffuse;
+    double specular;
+    double shininess;
 
     Material_t(
         const Color& color,
-        const float& ambient,
-        const float& diffuse,
-        const float& specular,
-        const float& shininess)
+        const double& ambient,
+        const double& diffuse,
+        const double& specular,
+        const double& shininess)
     : color{color}
     , ambient{ambient}
     , diffuse{diffuse}

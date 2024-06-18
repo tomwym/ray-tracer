@@ -4,7 +4,7 @@
 
 class Point : public Tuple {
 public:
-    Point(const float& x, const float& y, const float& z);
+    Point(const double& x, const double& y, const double& z);
     Point(const Vector4f& vec);
     Point(const Tuple& tup);
 };

@@ -4,12 +4,12 @@
 
 class Tuple : public Vector4f {
 public:
-    float& x;
-    float& y;
-    float& z;
-    float& w;
+    double& x;
+    double& y;
+    double& z;
+    double& w;
 
-    Tuple(const float& x, const float& y, const float& z, const float& w)
+    Tuple(const double& x, const double& y, const double& z, const double& w)
     : Vector4f{{x,y,z,w}}
     , x{Vector4f::operator()(0)}
     , y{Vector4f::operator()(1)}

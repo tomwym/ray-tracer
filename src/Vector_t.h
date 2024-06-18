@@ -101,9 +101,9 @@ public:
 
 };
 
-using Vector2f = Vector_t<float, 2>;
-using Vector3f = Vector_t<float, 3>;
-using Vector4f = Vector_t<float, 4>;
+using Vector2f = Vector_t<double, 2>;
+using Vector3f = Vector_t<double, 3>;
+using Vector4f = Vector_t<double, 4>;
 
 template<typename T, std::size_t N>
 auto Dot(const Vector_t<T, N>& vec1, const Vector_t<T, N>& vec2) -> T {

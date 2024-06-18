@@ -38,7 +38,7 @@ TEST(ColorTests, ColorOperatorsTest)
     // *
     {
         Color color{0.2, 0.3, 0.4};
-        float scalar{2.f};
+        double scalar{2.f};
         Color expected{0.4, 0.6, 0.8};
         EXPECT_TRUE(color*scalar == expected);
     }

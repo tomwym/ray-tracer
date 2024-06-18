@@ -26,7 +26,7 @@ IntersectionComputation::IntersectionComputation(
     }
 }
 
-Intersection::Intersection(float t, std::unique_ptr<Geometry>&& geom)
+Intersection::Intersection(double t, std::unique_ptr<Geometry>&& geom)
 : t{t}
 , geometry{std::move(geom)}
 {}

@@ -2,6 +2,6 @@
 
 #include <cmath>
 
-auto EQF(const float& a, const float& b) -> bool {
+auto EQF(const double& a, const double& b) -> bool {
     return std::abs(a-b) < EPSILON;
 }

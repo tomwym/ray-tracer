@@ -85,7 +85,7 @@ TEST(IntersectionTests, OverPointTest)
 {
     {
         Ray ray{Point{0,0,-5},Vector{0,0,1}};
-        Matrix4f transform{Transformations::Translation(0,0,1)};
+        Matrix4d transform{Transformations::Translation(0,0,1)};
         Sphere s;
         s.Transform(transform);
         Intersection i{5,std::make_unique<Sphere>(s)};

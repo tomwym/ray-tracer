@@ -18,7 +18,7 @@ Color::Color(const Color& copy)
 {
 }
 
-Color::Color(const float& red, const float& green, const float& blue)
+Color::Color(const double& red, const double& green, const double& blue)
 : Vector4f{{red, green, blue, 0.0f}}
 , red{Vector4f::operator()(0)}
 , green{Vector4f::operator()(1)}
@@ -36,7 +36,7 @@ auto Color::operator=(const Color& rhs) -> Color& {
     return *this;
 }
 
-auto Color::operator*(const float& scalar) const -> Color {
+auto Color::operator*(const double& scalar) const -> Color {
     return Vector4f::operator*(scalar);
 }
 

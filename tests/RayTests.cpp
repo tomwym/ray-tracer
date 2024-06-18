@@ -80,7 +80,7 @@ TEST(RayTests, TransformTest)
     // translating a ray
     {
         Ray ray{Point(1,2,3), Vector(0,1,0)};
-        Matrix4f transform(Transformations::Translation(3,4,5));
+        Matrix4d transform(Transformations::Translation(3,4,5));
         Ray r2{ray.Transform(transform)};
         EXPECT_TRUE(r2.origin == Point(4,6,8));
         EXPECT_TRUE(r2.direction == Vector(0,1,0));
@@ -88,7 +88,7 @@ TEST(RayTests, TransformTest)
     // scaling a ray
     {
         Ray ray{Point(1,2,3), Vector(0,1,0)};
-        Matrix4f transform(Transformations::Scaling(2,3,4));
+        Matrix4d transform(Transformations::Scaling(2,3,4));
         Ray r2{ray.Transform(transform)};
         EXPECT_TRUE(r2.origin == Point(2,6,12));
         EXPECT_TRUE(r2.direction == Vector(0,3,0));

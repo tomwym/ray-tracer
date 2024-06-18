@@ -13,7 +13,7 @@ class Intersection;
 class Material_t;
 template<typename T, std::size_t N>
 class Matrix;
-using Matrix4f = Matrix<float, 4>;
+using Matrix4d = Matrix<double, 4>;
 
 class Geometry {
 public:
@@ -22,5 +22,5 @@ public:
     virtual auto Normal(const Point& world_point) const -> Vector = 0;
     virtual auto Material() const -> Material_t = 0;
     virtual auto Material() -> Material_t& = 0;
-    virtual auto Transform() const -> Matrix4f = 0;
+    virtual auto Transform() const -> Matrix4d = 0;
 };

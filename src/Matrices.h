@@ -198,9 +198,9 @@ public:
     }
 };
 
-using Matrix2f = Matrix<float, 2>;
-using Matrix3f = Matrix<float, 3>;
-using Matrix4f = Matrix<float, 4>;
+using Matrix2f = Matrix<double, 2>;
+using Matrix3f = Matrix<double, 3>;
+using Matrix4d = Matrix<double, 4>;
 
 #include <iostream>
 
@@ -220,6 +220,6 @@ auto Identity() -> Matrix<T, N> {
     }
     return buffer;
 }
-// template<typename = float, std::size_t = 4> auto Identity() -> Matrix<float, 4>;
+// template<typename = double, std::size_t = 4> auto Identity() -> Matrix<double, 4>;
 
-// auto Identity4f() -> Matrix4f;
+// auto Identity4f() -> Matrix4d;

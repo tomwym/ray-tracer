@@ -1,6 +1,6 @@
 #include "Point.h"
 
-Point::Point(const float& x, const float& y, const float& z)
+Point::Point(const double& x, const double& y, const double& z)
 : Tuple{x,y,z,1.f}
 {}
 

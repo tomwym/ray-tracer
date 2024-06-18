@@ -11,7 +11,7 @@ using namespace ::testing;
 TEST(MatricesTests, IndexTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             1.f,2.f,3.f,4.f,
             5.5f,6.5f,7.5f,8.5f,
             9.f,10.f,11.f,12.f,
@@ -50,13 +50,13 @@ TEST(MatricesTests, IndexTest)
 TEST(MatricesTests, EqualityTest)
 {
     {
-        Matrix4f matA{{
+        Matrix4d matA{{
             1.f,2.f,3.f,4.f,
             5.f,6.f,7.f,8.f,
             9.f,8.f,7.f,6.f,
             5.f,4.f,3.f,2.f
         }};
-        Matrix4f matB{{
+        Matrix4d matB{{
             1.f,2.f,3.f,4.f,
             5.f,6.f,7.f,8.f,
             9.f,8.f,7.f,6.f,
@@ -94,19 +94,19 @@ TEST(MatricesTests, EqualityTest)
 TEST(MatricesTests, MultiplyMatrixTest)
 {
     {
-        Matrix4f matA{{
+        Matrix4d matA{{
             1.f,2.f,3.f,4.f,
             5.f,6.f,7.f,8.f,
             9.f,8.f,7.f,6.f,
             5.f,4.f,3.f,2.f
         }};
-        Matrix4f matB{{
+        Matrix4d matB{{
             -2.f,1.f,2.f,3.f,
             3.f,2.f,1.f,-1.f,
             4.f,3.f,6.f,5.f,
             1.f,2.f,7.f,8.f
         }};
-        Matrix4f expected{{
+        Matrix4d expected{{
             20.f,22.f,50.f,48.f,
             44.f,54.f,114.f,108.f,
             40.f,58.f,110.f,102.f,
@@ -119,7 +119,7 @@ TEST(MatricesTests, MultiplyMatrixTest)
 TEST(MatricesTests, MultiplyVectorTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             1.f,2.f,3.f,4.f,
             2.f,4.f,4.f,2.f,
             8.f,6.f,4.f,1.f,
@@ -134,13 +134,13 @@ TEST(MatricesTests, MultiplyVectorTest)
 TEST(MatricesTests, IdentityTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             0.f,1.f,2.f,4.f,
             1.f,2.f,4.f,8.f,
             2.f,4.f,8.f,16.f,
             4.f,8.f,16.f,32.f
         }};
-        Matrix4f id{Identity<float, 4>()};
+        Matrix4d id{Identity<double, 4>()};
 
         EXPECT_TRUE(mat*id == mat);
         EXPECT_TRUE(id*mat == mat);
@@ -150,13 +150,13 @@ TEST(MatricesTests, IdentityTest)
 TEST(MatricesTests, TransposeTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             0.f,9.f,3.f,0.f,
             9.f,8.f,0.f,8.f,
             1.f,8.f,5.f,3.f,
             0.f,0.f,5.f,8.f
         }};
-        Matrix4f mat_transposed{{
+        Matrix4d mat_transposed{{
             0.f,9.f,1.f,0.f,
             9.f,8.f,8.f,0.f,
             3.f,0.f,5.f,5.f,
@@ -173,7 +173,7 @@ TEST(MatricesTests, Determinant2x2Test)
         Matrix2f mat{{
             1.f,5.f,-3.f,2.f
         }};
-        float expected{17.f};
+        double expected{17.f};
         EXPECT_TRUE(mat.Determinant() == expected);
     }
 }
@@ -192,7 +192,7 @@ TEST(MatricesTests, SubMatrixTest)
         EXPECT_TRUE(mat.SubMatrix(0,2) == expected);
     }
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             -6.f,1.f,1.f,6.f,
             -8.f,5.f,8.f,6.f,
             -1.f,0.f,8.f,2.f,
@@ -215,7 +215,7 @@ TEST(MatricesTests, MinorTest)
             2.f,-1.f,-7.f,
             6.f,-1.f,5.f
         }};
-        float expected{25.f};
+        double expected{25.f};
         Matrix2f sub{mat.SubMatrix(1,0)};
         EXPECT_TRUE(sub.Determinant() == expected);
         EXPECT_TRUE(mat.Minor(1,0) == 25.f);
@@ -251,7 +251,7 @@ TEST(MatricesTests, DeterminantTest)
         EXPECT_EQ(mat.Determinant(), -196.f);
     }
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             -2.f,-8.f,3.f,5.f,
             -3.f,1.f,7.f,3.f,
             1.f,2.f,-9.f,6.f,
@@ -268,7 +268,7 @@ TEST(MatricesTests, DeterminantTest)
 TEST(MatricesTests, InvertibilityTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             6.f,4.f,4.f,4.f,
             5.f,5.f,7.f,6.f,
             4.f,-9.f,3.f,-7.f,
@@ -278,7 +278,7 @@ TEST(MatricesTests, InvertibilityTest)
         EXPECT_TRUE(mat.Invertible());
     }
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             -4.f,2.f,-2.f,-3.f,
             9.f,6.f,2.f,6.f,
             0.f,-5.f,1.f,-5.f,
@@ -292,20 +292,20 @@ TEST(MatricesTests, InvertibilityTest)
 TEST(MatricesTests, InverseTest)
 {
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             -5.f, 2.f,6.f,-8.f,
             1.f,-5.f,1.f,8.f,
             7.f, 7.f,-6.f,-7.f,
             1.f,-3.f,7.f,4.f
         }};
-        Matrix4f expected{{
+        Matrix4d expected{{
             0.21805,0.45113,0.24060,-0.04511,
             -0.80827,-1.45677,-0.44361,0.52068,
             -0.07895,-0.22368,-0.05263,0.19737,
             -0.52256,-0.81391,-0.30075,0.30639
         }};
         ASSERT_TRUE(mat.Invertible());
-        Matrix4f inverse(mat.Inverse());
+        Matrix4d inverse(mat.Inverse());
         EXPECT_EQ(mat.Determinant(), 532.f);
         EXPECT_EQ(mat.Cofactor(2,3), -160.f);
         EXPECT_TRUE(EQF(inverse(3,2), -160.f/532.f));
@@ -314,13 +314,13 @@ TEST(MatricesTests, InverseTest)
         EXPECT_TRUE(inverse == expected);
     }
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             8.f,-5.f, 9.f,2.f,
             7.f,5.f, 6.f,1.f,
             -6.f,0.f, 9.f,6.f,
             -3.f,0.f,-9.f,-4.f
         }};
-        Matrix4f expected{{
+        Matrix4d expected{{
             -0.15385,-0.15385,-0.28205,-0.53846,
             -0.07692,0.12308,0.02564,0.03077,
             0.35897,0.35897,0.43590,0.92308,
@@ -329,13 +329,13 @@ TEST(MatricesTests, InverseTest)
         EXPECT_TRUE(mat.Inverse() == expected);
     }
     {
-        Matrix4f mat{{
+        Matrix4d mat{{
             9.f,3.f,0.f,9.f,
             -5.f,-2.f,-6.f,-3.f,
             -4.f,9.f,6.f,4.f,
             -7.f,6.f,6.f,2.f
         }};
-        Matrix4f expected{{
+        Matrix4d expected{{
             -0.04074,-0.07778,0.14444,-0.22222,
             -0.07778,0.03333,0.36667,-0.33333,
             -0.02901,-0.14630,-0.10926,0.12963,
@@ -344,19 +344,19 @@ TEST(MatricesTests, InverseTest)
         EXPECT_TRUE(mat.Inverse() == expected);
     }
     {
-        Matrix4f matA{{
+        Matrix4d matA{{
             3.f,-9.f,7.f,3.f,
             3.f,-8.f,2.f,-9.f,
             -4.f,4.f,4.f,1.f,
             -6.f,5.f,-1.f,1.f
         }};
-        Matrix4f matB{{
+        Matrix4d matB{{
             8.f,2.f,2.f,2.f,
             3.f,-1.f,7.f,0.f,
             7.f,0.f,5.f,4.f,
             6.f,-2.f,0.f,5.f
         }};
-        Matrix4f matC{matA*matB};
+        Matrix4d matC{matA*matB};
         EXPECT_TRUE(matC*matB.Inverse() == matA);
     }
 }

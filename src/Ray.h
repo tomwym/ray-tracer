@@ -13,7 +13,7 @@ public:
     Vector direction;
 
     Ray(const Point& origin, const Vector& direction);
-    auto Position(const float& t) const -> Point;
+    auto Position(const double& t) const -> Point;
     auto Intersects(const Geometry& s) const -> std::vector<Intersection>;
-    auto Transform(const Matrix4f& matrix) const -> Ray;
+    auto Transform(const Matrix4d& matrix) const -> Ray;
 };
