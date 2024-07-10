@@ -3,9 +3,11 @@ add_library(ray-tracer-lib
     Camera.cpp
     Color.cpp
     Constvals.cpp
+    GeometryPropertiesImpl.cpp
     GridLinearizer.cpp
     Intersection.cpp
     Material.cpp
+    Plane.cpp
     Point.cpp
     Ray.cpp
     Sphere.cpp
@@ -17,3 +19,4 @@ add_subdirectory(01_ProjectileRenderer)
 add_subdirectory(04_Clock)
 add_subdirectory(05_Sphere)
 add_subdirectory(07_Scene)
+add_subdirectory(09_Scene_with_plane)

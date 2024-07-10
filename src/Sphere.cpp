@@ -6,24 +6,20 @@
 #include "Point.h"
 #include "Vector.h"
 
-Sphere::Sphere(const Matrix4d& transform, const Material_t& material)
-: transform{transform}
-, material{material}
+Sphere::Sphere(const Sphere& other)
+: Geometry{other.Transform(), other.Material()}
 {}
 
-auto Sphere::Clone() const -> GeometryPtr {
-    return std::make_unique<Sphere>(*this);
-}
+Sphere::Sphere(const Matrix4d& transform, const Material_t& material)
+: Geometry{transform, material}
+{}
 
 auto Sphere::operator==(const Sphere& rhs) const -> bool {
     return true;
 }
-auto Sphere::Transform() const -> Matrix4d {
-    return transform;
-}
 
-auto Sphere::Transform(const Matrix4d& other) -> void {
-    transform = other;
+auto Sphere::Clone() const -> GeometryPtr {
+    return std::make_unique<Sphere>(*this);
 }
 
 auto Sphere::Intersects(const Ray& ray) const -> std::vector<Intersection> {
@@ -34,7 +30,7 @@ auto Sphere::Intersects(const Ray& ray) const -> std::vector<Intersection> {
     double c{sphere_to_ray.Dot(sphere_to_ray) - 1.f};
     double discriminant{b*b-4.f*a*c};
 
-    if (discriminant < EPSILON) {
+    if (discriminant < 0) {
         return {};
     }
     std::vector<Intersection> result;
@@ -49,18 +45,6 @@ auto Sphere::Normal(const Point& world_point) const -> Vector {
     Vector world_normal{transform.Inverse().Transpose()*object_normal};
     world_normal.w = 0;
     return world_normal.Normalize();
-}
-
-auto Sphere::Material() const -> Material_t {
-    return material;
-}
-
-auto Sphere::Material() -> Material_t& {
-    return material;
-}
-
-auto Sphere::Material(const Material_t& mat) -> void {
-    material = mat;
 }
 
 auto SphereFactory(const Matrix4d& transform, const Material_t& material) -> GeometryPtr {

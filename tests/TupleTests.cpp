@@ -146,12 +146,12 @@ TEST(TupleTests, MagnitudeTest)
     {
         Tuple tup{Vector{1, 2, 3}};
         double expected{std::sqrt(14.f)};
-        EXPECT_TRUE(tup.Magnitude() == expected);
+        EXPECT_TRUE(EQF(tup.Magnitude(), expected));
     }
     {
         Tuple tup{Vector{-1, -2, -3}};
         double expected{std::sqrt(14.f)};
-        EXPECT_TRUE(tup.Magnitude() == expected);
+        EXPECT_TRUE(EQF(tup.Magnitude(), expected));
     }
 }
 

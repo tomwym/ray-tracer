@@ -61,8 +61,6 @@ auto World::PointShadowed(const Point& point) const -> bool {
     return it != xs.end();
 }
 
-
-
 auto WorldFactory::DefaultWorld() -> World {
     World world{std::make_unique<Light>(Point{-10,10,-10},Color{1,1,1})};
     Material_t mat;

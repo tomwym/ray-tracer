@@ -11,6 +11,7 @@ add_executable(ALL
     WorldTests.cpp
     IntersectionTests.cpp
     CameraTests.cpp
+    PlaneTests.cpp
 )
 target_link_libraries(ALL ray-tracer-lib)
 target_link_libraries(ALL ${GTEST_LIBRARIES})

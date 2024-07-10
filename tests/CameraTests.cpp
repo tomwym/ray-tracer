@@ -33,11 +33,11 @@ TEST(CameraTests, PixelSizeTest)
 {
     {
         Camera c{200,125,nums::pi/2.f};
-        EXPECT_EQ(c.pixel_dimension,0.01f);
+        EXPECT_TRUE(EQF(c.pixel_dimension,0.01f));
     }
     {
         Camera c{125,200,nums::pi/2.f};
-        EXPECT_EQ(c.pixel_dimension,0.01f);
+        EXPECT_TRUE(EQF(c.pixel_dimension,0.01f));
     }
 }
 
